@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!--
+    Viewport MUST be exactly 600×600 for Meta Display Glasses.
+    user-scalable=no prevents accidental zoom on the glasses WebView.
+  -->
   <meta name="viewport" content="width=600, height=600, initial-scale=1.0, user-scalable=no">
-  <title>Hello, Ray-Ban</title>
+  <title>RBDG Apps</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
@@ -11,45 +15,47 @@
 <body>
   <div id="app">
 
+    <!--
+      Each page is a full-screen <div class="screen">.
+      Only one screen is visible at a time — the others get class="hidden".
+      This launcher has a single screen (the app grid), so there is no
+      hidden screen here.
+    -->
     <div id="home" class="screen">
-      <header class="header">
-        <h1>Hello, Ray-Ban</h1>
-        <span class="header-meta" id="status-indicator">&#128083;</span>
-      </header>
-      <div class="content">
-        <div class="greeting-card">
-          <div class="greeting-emoji">&#128075;</div>
-          <div class="greeting-text">Hello, World!</div>
-          <div class="greeting-sub">Your first Meta Display Glasses app is running.</div>
-        </div>
-        <button class="nav-item focusable" data-action="wave">Wave &#128079;</button>
-        <button class="nav-item focusable" data-action="go-about">About this app &#8594;</button>
-      </div>
-    </div>
 
-    <div id="about" class="screen hidden">
       <header class="header">
-        <button class="back-btn focusable" data-action="back">&#8592;</button>
-        <h1>About</h1>
+        <h1>RBDG Apps</h1>
+        <span class="header-meta">&#128241;</span>  <!-- 📱 -->
       </header>
-      <div class="content">
-        <div class="card">
-          <div class="card-title">hello-rbdg</div>
-          <div class="card-subtitle">A starter webapp for Meta Display Glasses.</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Display</div>
-          <div class="card-subtitle">600 × 600 dp additive waveguide — black is transparent.</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Input</div>
-          <div class="card-subtitle">D-pad (captouch) + EMG wrist band. Use arrow keys in browser to navigate.</div>
-        </div>
-        <button class="nav-item focusable" data-action="back">&#8592; Back</button>
-      </div>
-    </div>
 
+      <div class="content">
+        <!--
+          App grid — one tile per mini-app.
+          Each tile is a plain <a> link that loads the app's index.html.
+          The glasses WebView handles full-page navigation natively.
+
+          To add a new app:
+            1. Create apps/<name>/index.html (copy an existing app as template)
+            2. Add an <a> tile here pointing to apps/<name>/
+        -->
+        <div class="app-grid">
+
+          <a class="app-tile focusable" href="apps/hello/">
+            <span class="tile-icon">&#128075;</span>  <!-- 👋 -->
+            <span class="tile-name">Hello</span>
+          </a>
+
+          <a class="app-tile focusable" href="apps/quiz/">
+            <span class="tile-icon">&#129504;</span>  <!-- 🧠 -->
+            <span class="tile-name">Quiz</span>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
   </div>
+
   <script src="app.js"></script>
 </body>
 </html>

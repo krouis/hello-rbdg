@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=600, height=600, initial-scale=1.0, user-scalable=no">
+  <title>Quiz — RBDG Apps</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <!--
+      ── Start screen ──────────────────────────────────────────────────────
+      Entry point. Shows the topic and lets the user begin.
+    -->
+    <div id="start" class="screen">
+
+      <header class="header">
+        <!-- <a> not data-action here: this navigates to a different HTML file -->
+        <a class="back-btn focusable" href="../../index.html">&#8592;</a>
+        <h1>Quiz</h1>
+      </header>
+
+      <div class="content">
+
+        <div class="intro-card">
+          <div class="intro-emoji">&#129504;</div>  <!-- 🧠 -->
+          <div class="intro-title">Meta Display Glasses</div>
+          <div class="intro-sub">
+            5 questions about building apps for the glasses.
+          </div>
+        </div>
+
+        <!--
+          data-action triggers handleAction() in app.js.
+          Keep the HTML clean: buttons say what they do, not how.
+        -->
+        <button class="btn btn-primary focusable" data-action="start-quiz">
+          Start &#8594;
+        </button>
+
+      </div>
+    </div>
+
+    <!--
+      ── Question screen ───────────────────────────────────────────────────
+      Rendered dynamically by renderQuestion() in app.js.
+      The answer buttons are reused for every question — only their text
+      and state (correct / wrong / disabled) changes.
+    -->
+    <div id="question" class="screen hidden">
+
+      <header class="header">
+        <!-- Updated by app.js each time a new question is shown -->
+        <h1 id="progress">Question 1 / 5</h1>
+      </header>
+
+      <div class="content">
+
+        <p id="question-text" class="question-text"></p>
+
+        <!--
+          Four answer buttons, one per option.
+          data-answer holds the option index (0–3).
+          app.js sets their text, enables/disables them, and adds
+          class="correct" or class="wrong" after the user picks.
+        -->
+        <div class="answers">
+          <button class="answer-btn focusable" data-action="select-answer" data-answer="0"></button>
+          <button class="answer-btn focusable" data-action="select-answer" data-answer="1"></button>
+          <button class="answer-btn focusable" data-action="select-answer" data-answer="2"></button>
+          <button class="answer-btn focusable" data-action="select-answer" data-answer="3"></button>
+        </div>
+
+        <!--
+          Next button — hidden until the user picks an answer.
+          class="hidden" is removed and .focusable is added by app.js,
+          then focus is moved here automatically.
+        -->
+        <button id="next-btn" class="btn btn-primary hidden" data-action="next-question">
+          Next &#8594;
+        </button>
+
+      </div>
+    </div>
+
+    <!--
+      ── Result screen ──────────────────────────────────────────────────────
+      Populated by renderResult() in app.js once all questions are done.
+    -->
+    <div id="result" class="screen hidden">
+
+      <header class="header">
+        <h1>Results</h1>
+      </header>
+
+      <div class="content">
+
+        <div class="result-card">
+          <div id="result-emoji" class="result-emoji"></div>
+          <div id="result-score" class="result-score"></div>
+          <div id="result-label" class="result-label"></div>
+        </div>
+
+        <button class="btn btn-primary focusable" data-action="restart">
+          Play Again
+        </button>
+
+        <a class="btn focusable" href="../../index.html">
+          &#8592; Menu
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

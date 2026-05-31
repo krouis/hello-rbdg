@@ -1,0 +1,171 @@
+/*
+  Hello app — styles.css
+  ──────────────────────
+  Each app is self-contained: its own HTML, CSS, JS, and favicon.
+  The design tokens below are the same across all RBDG apps so the
+  collection feels coherent, but there is no shared CSS file to import —
+  keeping apps independent makes them easier to copy and understand.
+
+  Additive display rules (repeated here so each app is self-documenting):
+    #000000  →  transparent (real world shows through) — use for body background
+    #0a0a0f+ →  dark gray — use for UI surfaces that must be visible
+*/
+:root {
+  --bg-primary:   #000000;
+  --bg-secondary: #0a0a0f;
+  --bg-tertiary:  #14141f;
+  --bg-card:      #1a1a2e;
+
+  --text-primary:   #ffffff;
+  --text-secondary: #a0a0b0;
+
+  --accent-primary: #00d4ff;
+  --focus-ring:     #00d4ff;
+  --focus-glow:     rgba(0, 212, 255, 0.4);
+  --success:        #00ff88;
+
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+}
+
+#app { width: 100%; height: 100%; position: relative; }
+
+/* ── Screens ──────────────────────────────────────────────────────────── */
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0; left: 0;
+}
+.screen.hidden { display: none; }
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  gap: 12px;
+  flex-shrink: 0;
+}
+.header h1   { font-size: 22px; font-weight: 600; flex: 1; }
+.header-meta { font-size: 20px; }
+
+.back-btn {
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+/* ── Content ──────────────────────────────────────────────────────────── */
+.content {
+  flex: 1;
+  padding: 16px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Focus (D-pad navigation) ─────────────────────────────────────────── */
+/*
+  EVERY interactive element must have class="focusable".
+  The cyan glow is the only selection indicator on the glasses.
+*/
+.focusable {
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+.focusable:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 20px var(--focus-glow);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none; /* for <a> tags styled as buttons */
+  gap: 8px;
+}
+.btn:focus      { background: var(--bg-card); }
+.btn.btn-subtle { color: var(--text-secondary); }
+
+/* ── Greeting card (hero section) ─────────────────────────────────────── */
+.greeting-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #1e1e30;
+}
+.greeting-emoji { font-size: 52px; line-height: 1; }
+.greeting-text  { font-size: 28px; font-weight: 700; color: var(--accent-primary); }
+.greeting-sub   { font-size: 14px; color: var(--text-secondary); text-align: center; }
+
+/* ── Info cards (About screen) ────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 2px solid transparent;
+}
+.card-title    { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.card-subtitle { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ── Toast notification ───────────────────────────────────────────────── */
+/*
+  Toasts slide in from the top (per display guidelines: 24dp from top).
+  They are purely informational — never use them for navigation.
+*/
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px); /* hidden above viewport */
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 14px;
+  border: 1px solid var(--accent-primary);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  pointer-events: none;
+  max-width: 536px;
+}
+.toast.visible  { transform: translateX(-50%) translateY(0); }
+.toast.success  { border-color: var(--success); }
+
+/* ── Utility ──────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }

@@ -1,0 +1,209 @@
+/*
+  Quiz app — styles.css
+  ─────────────────────
+  Same design tokens as every other RBDG app.
+  App-specific additions are at the bottom:
+    • .intro-card / .result-card  — hero sections
+    • .question-text              — large, readable question display
+    • .answer-btn                 — selectable options with correct/wrong states
+*/
+:root {
+  --bg-primary:   #000000;
+  --bg-secondary: #0a0a0f;
+  --bg-tertiary:  #14141f;
+  --bg-card:      #1a1a2e;
+
+  --text-primary:   #ffffff;
+  --text-secondary: #a0a0b0;
+
+  --accent-primary: #00d4ff;
+  --focus-ring:     #00d4ff;
+  --focus-glow:     rgba(0, 212, 255, 0.4);
+
+  --correct:        #00ff88;
+  --correct-bg:     rgba(0, 255, 136, 0.15);
+  --wrong:          #ff4466;
+  --wrong-bg:       rgba(255, 68, 102, 0.15);
+
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+}
+
+#app { width: 100%; height: 100%; position: relative; }
+
+/* ── Screens ──────────────────────────────────────────────────────────── */
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0; left: 0;
+}
+.screen.hidden { display: none; }
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  gap: 12px;
+  flex-shrink: 0;
+}
+.header h1 { font-size: 22px; font-weight: 600; flex: 1; }
+
+.back-btn {
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  text-decoration: none;
+}
+
+/* ── Content ──────────────────────────────────────────────────────────── */
+.content {
+  flex: 1;
+  padding: 16px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Focus ────────────────────────────────────────────────────────────── */
+.focusable {
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+              background 0.15s ease;
+  cursor: pointer;
+}
+.focusable:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 20px var(--focus-glow);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  gap: 8px;
+}
+.btn:focus { background: var(--bg-card); }
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: #0a0a0f; /* dark text on bright button */
+  font-weight: 700;
+}
+.btn-primary:focus { background: #33ddff; border-color: #33ddff; }
+
+/* ── Intro card (start screen) ────────────────────────────────────────── */
+.intro-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #1e1e30;
+  flex: 1; /* fill available space so the button sits at the bottom */
+  justify-content: center;
+}
+.intro-emoji { font-size: 52px; line-height: 1; }
+.intro-title { font-size: 20px; font-weight: 700; color: var(--accent-primary); }
+.intro-sub   { font-size: 14px; color: var(--text-secondary); text-align: center; }
+
+/* ── Question text ────────────────────────────────────────────────────── */
+/*
+  Large, easy to read at arm's length.
+  Two lines max for typical questions — overflow wraps naturally.
+*/
+.question-text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 4px 0;
+}
+
+/* ── Answer buttons ───────────────────────────────────────────────────── */
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.answer-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  border: 2px solid transparent;
+}
+.answer-btn:focus:not(:disabled) {
+  background: var(--bg-card);
+}
+
+/* Applied by app.js after the user picks an answer */
+.answer-btn.correct {
+  background: var(--correct-bg);
+  border-color: var(--correct);
+  color: var(--correct);
+}
+.answer-btn.wrong {
+  background: var(--wrong-bg);
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+.answer-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── Result card ──────────────────────────────────────────────────────── */
+.result-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 36px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #1e1e30;
+  flex: 1;
+  justify-content: center;
+}
+.result-emoji { font-size: 52px; line-height: 1; }
+.result-score { font-size: 32px; font-weight: 700; color: var(--accent-primary); }
+.result-label { font-size: 14px; color: var(--text-secondary); }
+
+/* ── Utility ──────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }

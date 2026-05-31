@@ -1,6 +1,6 @@
 {
-  "name": "RBDG Apps",
-  "short_name": "RBDG",
+  "name": "Quiz — RBDG Apps",
+  "short_name": "Quiz",
   "icons": [
     { "src": "favicon.png", "sizes": "128x128", "type": "image/png" }
   ],

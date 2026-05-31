@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=600, height=600, initial-scale=1.0, user-scalable=no">
+  <title>Hello — RBDG Apps</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <!--
+      ── Home screen ──────────────────────────────────────────────────────
+      The first screen the user sees. Screens are plain <div>s — the JS
+      in app.js shows/hides them by toggling class="hidden".
+    -->
+    <div id="home" class="screen">
+
+      <header class="header">
+        <h1>Hello</h1>
+        <!--
+          status-indicator: updated by app.js to show the wave count.
+          Keeping display state in the DOM like this (rather than a
+          separate state object) is fine for small apps.
+        -->
+        <span class="header-meta" id="status-indicator">&#128075;</span>  <!-- 👋 -->
+      </header>
+
+      <div class="content">
+
+        <!-- Static hero card — not focusable, just decorative -->
+        <div class="greeting-card">
+          <div class="greeting-emoji">&#128075;</div>  <!-- 👋 -->
+          <div class="greeting-text">Hello, World!</div>
+          <div class="greeting-sub">Your first Meta Display Glasses app.</div>
+        </div>
+
+        <!--
+          Buttons carry data-action="<name>".
+          app.js listens for clicks on ANY element with data-action and
+          routes to handleAction(). This keeps HTML and logic decoupled.
+        -->
+        <button class="btn focusable" data-action="wave">
+          Wave &#128079;  <!-- 👏 -->
+        </button>
+
+        <button class="btn focusable" data-action="go-about">
+          About this app &#8594;
+        </button>
+
+        <!-- Plain link back to the launcher (full-page navigation) -->
+        <a class="btn btn-subtle focusable" href="../../index.html">
+          &#8592; Menu
+        </a>
+
+      </div>
+    </div>
+
+    <!--
+      ── About screen ─────────────────────────────────────────────────────
+      A second screen demonstrates in-app navigation: the JS hides the
+      home screen and reveals this one without a full page reload.
+      class="hidden" means it starts invisible.
+    -->
+    <div id="about" class="screen hidden">
+
+      <header class="header">
+        <!--
+          data-action="back" is a built-in action handled by navigateBack()
+          in app.js. It pops the screen history stack.
+        -->
+        <button class="back-btn focusable" data-action="back">&#8592;</button>
+        <h1>About</h1>
+      </header>
+
+      <div class="content">
+
+        <div class="card">
+          <div class="card-title">Display</div>
+          <div class="card-subtitle">
+            600 × 600 dp additive waveguide. Black (#000) is fully
+            transparent — the real world shows through.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Input</div>
+          <div class="card-subtitle">
+            D-pad captouch on the temple + EMG wristband for pinch gestures.
+            No touchscreen. Arrow keys work in the browser for testing.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Storage</div>
+          <div class="card-subtitle">
+            Wave count is saved to localStorage so it survives page reloads.
+          </div>
+        </div>
+
+        <button class="btn focusable" data-action="back">&#8592; Back</button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
