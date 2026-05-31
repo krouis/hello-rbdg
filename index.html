@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=600, height=600, initial-scale=1.0, user-scalable=no">
+  <title>Hello, Ray-Ban</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <div id="home" class="screen">
+      <header class="header">
+        <h1>Hello, Ray-Ban</h1>
+        <span class="header-meta" id="status-indicator">&#128083;</span>
+      </header>
+      <div class="content">
+        <div class="greeting-card">
+          <div class="greeting-emoji">&#128075;</div>
+          <div class="greeting-text">Hello, World!</div>
+          <div class="greeting-sub">Your first Meta Display Glasses app is running.</div>
+        </div>
+        <button class="nav-item focusable" data-action="wave">Wave &#128079;</button>
+        <button class="nav-item focusable" data-action="go-about">About this app &#8594;</button>
+      </div>
+    </div>
+
+    <div id="about" class="screen hidden">
+      <header class="header">
+        <button class="back-btn focusable" data-action="back">&#8592;</button>
+        <h1>About</h1>
+      </header>
+      <div class="content">
+        <div class="card">
+          <div class="card-title">hello-rbdg</div>
+          <div class="card-subtitle">A starter webapp for Meta Display Glasses.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Display</div>
+          <div class="card-subtitle">600 × 600 dp additive waveguide — black is transparent.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Input</div>
+          <div class="card-subtitle">D-pad (captouch) + EMG wrist band. Use arrow keys in browser to navigate.</div>
+        </div>
+        <button class="nav-item focusable" data-action="back">&#8592; Back</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
